@@ -1,17 +1,18 @@
 import { useNavigate } from "react-router-dom";
+import { TableRow, TableCell, Button, Avatar } from "@mui/material";
 
 /* eslint-disable react/prop-types */
 export const UserListPart = ({ user }) => {
   const navigate = useNavigate();
 
-  const handleEdit =()=>{
+  const handleEdit = () => {
     navigate(`/update/${user.id}`);
   };
-  const handleDelete = (idUser) => {
 
+  const handleDelete = (idUser) => {
     var data = {
       id: idUser,
-    }
+    };
 
     fetch('https://www.melivecode.com/api/users/delete', {
       method: 'DELETE',
@@ -21,22 +22,28 @@ export const UserListPart = ({ user }) => {
       },
       body: JSON.stringify(data),
     })
-      navigate("/usuarios");
+    navigate("/usuarios");
   };
 
   return (
-    <>
-      <tr>
-        <td>{user.id}</td>
-        <td>{user.fname}</td>
-        <td>{user.lname}</td>
-        <td>{user.username}</td>
-        <td>
-          <img src={user.avatar} style={{ maxWidth: '20%', height: 'auto' }} alt="Imagen Avatar" />
-        </td>
-        <td><button onClick={() => handleDelete(user.id)}>Eliminar</button></td>
-        <td><button onClick={handleEdit}>Editar</button></td>
-      </tr>
-    </>
+    <TableRow>
+      <TableCell>{user.id}</TableCell>
+      <TableCell>{user.fname}</TableCell>
+      <TableCell>{user.lname}</TableCell>
+      <TableCell>{user.username}</TableCell>
+      <TableCell>
+        <Avatar src={user.avatar} sx={{ width: '40px', height: '40px' }} alt="Imagen Avatar" />
+      </TableCell>
+      <TableCell>
+        <Button variant="outlined" color="error" onClick={() => handleDelete(user.id)}>
+          Eliminar
+        </Button>
+      </TableCell>
+      <TableCell>
+        <Button variant="outlined" color="primary" onClick={handleEdit}>
+          Editar
+        </Button>
+      </TableCell>
+    </TableRow>
   );
 };
