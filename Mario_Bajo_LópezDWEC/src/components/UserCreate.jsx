@@ -67,7 +67,6 @@ export const UserCreate = () => {
                 autoFocus
               />
 
-              {/* … resto de textfields*/}
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
